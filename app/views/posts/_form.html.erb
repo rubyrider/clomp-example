@@ -1,0 +1,24 @@
+<%= form_with(model: post, local: true) do |form| %>
+  <% if @result.options[:errors].present? %>
+    <h1><%= @result.options[:errors] %></h1>
+  <% end %>
+  <% if @result.options[:post].errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@result.options[:post].errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+        <% @result.options[:post].errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= form.label :title %>
+  <%= form.text_field :title %>
+
+  <%= form.label :description %>
+  <%= form.text_area :description %>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

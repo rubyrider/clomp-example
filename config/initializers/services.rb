@@ -1,0 +1,1 @@
+Dir["#{Rails.root}/app/services/*.rb"].each { |file | require file }
