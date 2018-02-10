@@ -3,9 +3,9 @@ require 'byebug'
 class Post::Create < Clomp::Operation
   track :new_post_instance
   
-  track :validation_of_post do |options|
-    options[:notice] = 'Your post is not valid'
-  end
+  track :validation_of_post
+  
+  failure :set_errors
   
   track :persist_post
   
@@ -15,14 +15,18 @@ class Post::Create < Clomp::Operation
     options[:post] = Post.new
   end
   
-  def validation_of_post(options, post:, **)
-    post.assign_attributes(options[:mutable_data])
+  def validation_of_post(options, params:, post:, **)
+    post.assign_attributes(params)
     
-    if options[:mutable_data].present?
+    if params.present?
       post.valid?
     else
-      raise 'Data not mutable'
+      post.valid?
     end
+  end
+  
+  def set_errors(options, post:, **)
+    options[:errors] = post.errors.full_messages
   end
   
   def persist_post(options, post:, **)

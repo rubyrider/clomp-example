@@ -1,6 +1,6 @@
 <%= form_with(model: post, local: true) do |form| %>
-  <% if @result.options[:errors].present? %>
-    <h1><%= @result.options[:errors] %></h1>
+  <% if @result.options.errors.present? %>
+    <h1><%= @result.options.errors.join(', ') %></h1>
   <% end %>
   <% if @result.options[:post].errors.any? %>
     <div id="error_explanation">

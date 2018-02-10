@@ -15,7 +15,7 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @result = Post::Create[{}]
-    @post = @result.options[:post]
+    @post = @result.options.post
   end
 
   # GET /posts/1/edit
